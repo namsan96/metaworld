@@ -11,7 +11,7 @@ from metaworld.envs import reward_utils
 from metaworld.envs.mujoco.mujoco_env import MujocoEnv, _assert_task_is_set
 
 
-class SawyerMocapBase(MujocoEnv, metaclass=abc.ABCMeta):
+class SawyerMocapBase(MujocoEnv):#, metaclass=abc.ABCMeta):
     """
     Provides some commonly-shared functions for Sawyer Mujoco envs that use
     mocap for XYZ control.
@@ -78,7 +78,7 @@ class SawyerMocapBase(MujocoEnv, metaclass=abc.ABCMeta):
         sim.forward()
 
 
-class SawyerXYZEnv(SawyerMocapBase, metaclass=abc.ABCMeta):
+class SawyerXYZEnv(SawyerMocapBase):#, metaclass=abc.ABCMeta):
     _HAND_SPACE = Box(
         np.array([-0.525, .348, -.0525]),
         np.array([+0.525, 1.025, .7])
@@ -457,7 +457,9 @@ class SawyerXYZEnv(SawyerMocapBase, metaclass=abc.ABCMeta):
 
     def reset(self):
         self.curr_path_length = 0
-        return super().reset()
+        state = super().reset()
+        self._prev_obs = self._get_curr_obs_combined_no_goal()
+        return state
 
     def _reset_hand(self, steps=50):
         for _ in range(steps):
