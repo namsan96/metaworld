@@ -28,7 +28,7 @@ def _assert_task_is_set(func):
 
 DEFAULT_SIZE = 500
 
-class MujocoEnv(gym.Env, abc.ABC):
+class MujocoEnv(gym.Env):#, abc.ABC):
     """
     This is a simplified version of the gym MujocoEnv class.
 
@@ -125,8 +125,8 @@ class MujocoEnv(gym.Env, abc.ABC):
     def render(self, offscreen=False, camera_name="corner2", resolution=(640, 480)):
         assert_string = ("camera_name should be one of ",
                 "corner3, corner, corner2, topview, gripperPOV, behindGripper")
-        assert camera_name in {"corner3", "corner", "corner2", 
-            "topview", "gripperPOV", "behindGripper"}, assert_string
+        #assert camera_name in {"corner3", "corner", "corner2", 
+        #    "topview", "gripperPOV", "behindGripper"}, assert_string
         if not offscreen:
             self._get_viewer('human').render()
         else:
